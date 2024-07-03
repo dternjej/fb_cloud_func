@@ -1,0 +1,71 @@
+# README translateHrEn
+
+## FB Function for Translating Text from HR to EN
+### Function Name: `translateHrEn`
+
+This function uses the Google Cloud Translation API and is enabled in Google Cloud.
+
+### Trigger
+The function is triggered automatically by inserting a new document at the path:
+'apps/xemktCwPk8hba9q5pZq3/batch/{batchId}/cards/{cardId}'
+
+#### Path Parameters:
+- `xemktCwPk8hba9q5pZq3`: ID of the NewsScraper App
+- `{batchId}`: Auto-generated ID for the batch process
+- `{cardId}`: Auto-generated ID for the news article
+
+### Translation Attributes:
+The function translates text inserted in the following attributes:
+- `articleSummary`
+- `articleTitle`
+- `shortTitle`
+
+### Location
+The script specifies the location as `us-central1` because the Google Cloud Translation API is only available in `global` and `us-central1` locations:
+const location = 'us-central1';
+
+
+## Installation
+
+1. Create a new project directory:
+    mkdir project_name
+    cd project_name
+
+
+2. Log in to Firebase:
+    firebase login
+
+3. Initialize Firebase:
+    firebase init
+    - Select: `Functions: Configure a Cloud Functions directory and its files`
+    - Choose: `Use an existing project`
+    - Select: `digniti-adb20 (digniti)`
+    - Choose: `JavaScript`
+    - ESLint: `No`
+    - Install dependencies: `Yes`
+
+4. Navigate to the functions directory and install required dependencies:
+    cd project_name/functions
+    npm install firebase-admin@latest firebase-functions@latest @google-cloud/translate
+
+5. Verify `package.json`:
+    {
+      "dependencies": {
+        "@google-cloud/translate": "^8.3.0",
+        "firebase-admin": "^12.2.0",
+        "firebase-functions": "^5.0.1"
+      }
+    }
+
+## Deployment
+
+Deploy the function:
+firebase deploy --only functions
+
+## Verification
+
+1. Check if the function is installed in Firebase:
+    [Firebase Console](https://console.firebase.google.com/project/digniti-adb20/functions)
+
+2. Run the Scrap batch process and check the logs:
+    firebase functions:log
